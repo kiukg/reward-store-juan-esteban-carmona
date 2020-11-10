@@ -5,7 +5,7 @@ const CategoryBanner = () =>{
 
     return(
         <div className="bannerContainer">
-            <span>Categoria</span>
+            <span className="bannerCategory">Categoria</span>
             <img className="bannerLogo" src={logo}>
             </img>
         </div>
