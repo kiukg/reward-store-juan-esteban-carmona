@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import logo from "../assets/logo/aerolab-logo.svg"
 import Profile from "./Profile"
 
