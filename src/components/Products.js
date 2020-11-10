@@ -22,7 +22,7 @@ const Products = () => {
         setProducts(res);
       });
   }, []);
-
+  
   return (
     <div className="productsContainer">
       {products.map((product) => {
@@ -33,6 +33,7 @@ const Products = () => {
             cost={product.cost}
             img={product.img.url}
             name={product.name}
+            cost={product.cost}
           />
         );
       })}

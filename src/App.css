@@ -8,6 +8,7 @@
   grid-template-columns: 50px 1fr;
   padding: 10px 15px;
   color: white;
+  position: sticky;
   top: 0;
   z-index: 10;
   border-bottom: 1px solid white;
@@ -19,6 +20,7 @@
   align-items: center;
   justify-self: end;
   grid-gap: 10px;
+  position: relative;
 }
 
 .pointCounterContainer {
@@ -28,9 +30,13 @@
   grid-template-columns: auto 25px;
   grid-gap: 5px;
   background-color: #ffffff85;
-  padding: 5px;
+  padding:  5px 10px;
   border-radius: 1em;
 }
+/* .profileContainer:hover{
+  cursor: pointer;
+} */
+
 .pointCounterIcon {
   width: 100%;
 }
@@ -76,9 +82,23 @@
 }
 .productBuyIcon{
   position: absolute;
-  left: calc(100% - 42px - 15px);
+  right: 15px;
   top: 15px;
 }
+.productNeedCoin{
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  display: grid;
+  grid-template-columns: auto 30px;
+  align-items: center;
+  grid-gap: 5px;
+  background-color: #282c34bb;
+  padding: 5px 15px;
+  border-radius: 10px;
+  color: white;
+}
+
 .productImage{
   grid-row: 2;
 }
@@ -97,4 +117,71 @@
 .productName{
   grid-row: 5;
   padding-left: 5px;
+}
+
+.hidden{
+  display: none;
+}
+
+.modal{
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #000000a6;
+  z-index: 8;
+}
+
+.menuModalDialogContainer{
+  display: grid;
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background-color: white;
+  top: 50%;
+  left: 0;
+  transform: translate(-150%, 25%);
+  color: black;
+  z-index: 9;
+}
+
+.headerMenu{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  height: 40px;
+  padding: 5px;
+  background-color: black;
+  color: white;
+  box-sizing: border-box;
+}
+
+.headerTitle{
+  margin-left: 15px;
+}
+
+.headerToolbar{
+  cursor: pointer;
+}
+
+.profileToogleMenu {
+  position: absolute;
+  background-color: #282c34;
+  top: calc(100% + 10px);
+  padding: 10px;
+  box-sizing: border-box;
+  margin: 0;
+  list-style: none;
+  border: 1px solid;
+  width: 100%;
+}
+
+.profileToogleItem {
+  padding: 5px;
+}
+.profileToogleItem:hover {
+  background-color: #ffffff73;
+  cursor: pointer;
 }
