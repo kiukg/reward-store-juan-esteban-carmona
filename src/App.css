@@ -421,6 +421,7 @@ border-radius: 5px;
   background-color: rgb(25 198 245);
   align-items: center;
   width: 100%;
+  box-sizing: border-box;
   padding: 10px;
   grid-auto-flow: column;
   grid-gap: 5px;
