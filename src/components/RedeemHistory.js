@@ -22,7 +22,6 @@ const RedeemHistory = () => {
       .then((res) => {
         setHistory(res);
       });
-      console.log(history)
   });
 
   return (

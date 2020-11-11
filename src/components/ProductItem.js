@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { asyncFetch } from "../utils/helpers";
 import { UserContext } from "../context/context";
 import buyIcon from "../assets/icons/buy-blue.svg";
 import coinIcon from "../assets/icons/coin.svg";

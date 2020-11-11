@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../context/context";
 import { asyncFetch } from "../utils/helpers";
 import ProductItem from "./ProductItem";
@@ -7,6 +7,10 @@ import ModalAlert from "./ModalAlert";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+  const [query,setQuery] = useState({
+    category:"-1",
+    cost:""
+  })
   const [user, setUser, GetUserInfo] = useContext(UserContext);
   const [redeemResult, setRedeemResult] = useState({
     visible: false,
@@ -20,6 +24,8 @@ const Products = () => {
     pageSize: 16,
     page: 1,
   });
+
+  const Categories =  ["Phones", "Gaming", "Laptops", "Cameras", "Audio", "Monitors & TV", "Drones", "Phone Accessories", "Smart Home", "PC Accessories", "Tablets & E-readers", "PC Accesories"];
 
   const paginate = (array, pageSize, page) => {
     if (array.lenght == 0) {
@@ -37,56 +43,108 @@ const Products = () => {
     });
   };
 
-  const CloseModal =()=>{
+  const CloseModal = () => {
     setRedeemResult({
       visible: false,
       result: true,
       title: "",
       message: "",
     });
-    document.querySelector(".modal").style.display='none';
+    document.querySelector(".modal").style.display = "none";
+  };
+
+  const RedeemProduct = (id) => async (event) => {
+    const Url =
+      "https://private-anon-44244cc0a3-aerolabchallenge.apiary-proxy.com/redeem";
+    const headers = {
+      method: "POST",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFhYzljZGI5NTIzZTAwMjA3ZTFmYzIiLCJpYXQiOjE2MDUwMjgzMDF9.AmLe0RxgByiXoIvSND0TFzRmZoN1DZQXFh2XAWt21bE",
+      }),
+      body: JSON.stringify({
+        productId: id,
+      }),
+    };
+
+    const response = await asyncFetch(Url, headers);
+    document.querySelector(".modal").style.display = "grid";
+    if (response.message) {
+      setRedeemResult({
+        visible: true,
+        result: true,
+        title: "Success",
+        message: response.message,
+      });
+      GetUserInfo();
+    }
+
+    if (response.error) {
+      setRedeemResult({
+        visible: true,
+        result: false,
+        title: "Error",
+        message: response.error,
+      });
+    }
+  };
+
+  const FilterByCost = (event) =>{
+    const value = event.target.value
+    setQuery({
+      ...query,
+      cost:value
+    })
+    Filter(value)
   }
 
-   const RedeemProduct = (id)=> async(event) =>{
-    
-      const Url =
-        "https://private-anon-44244cc0a3-aerolabchallenge.apiary-proxy.com/redeem";
-      const headers = {
-        method: "POST",
-        headers: new Headers({
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFhYzljZGI5NTIzZTAwMjA3ZTFmYzIiLCJpYXQiOjE2MDUwMjgzMDF9.AmLe0RxgByiXoIvSND0TFzRmZoN1DZQXFh2XAWt21bE",
-        }),
-        body: JSON.stringify({
-          productId: id,
-        }),
-      };
+  const FilterByCategory = (event) =>{
+    const value = event.target.value
+      setQuery({
+        ...query,
+        category:value
+      })
+      Filter(value)
+  }
 
-      const response = await asyncFetch(Url, headers);
-      document.querySelector(".modal").style.display = "grid";
-      if (response.message) {
-        // console.log("responseOk",response)
-        setRedeemResult({
-          visible: true,
-          result: true,
-          title: "Success",
-          message: response.message,
-        });
-        GetUserInfo()
+  const Filter = (value)=>{
+      var result = products.filter(Search, query)
+    const newArray = paginate(result, pagination.pageSize, pagination.page);
+    setPagination({
+      ...pagination,
+      page:1,
+      paginationCounter: Math.floor(result.length / pagination.pageSize),
+      paginatedProducts: newArray,
+    });
+  }
+
+  function Search(product){
+    const contextT=this;
+    let filtered = Object.keys(this).every((key)=>{
+      switch(key){
+        case 'category':
+          if(contextT[key]==="-1"){
+            return product[key]  
+          }
+          else{
+            
+            return product[key]==contextT[key]
+          }
+        case 'cost':
+          if(contextT[key]===""){
+            return product[key]  
+          }
+          else{
+          return product[key]==contextT[key]
+          }
+          
+        default:return products
       }
 
-      if (response.error) {
-        // console.log("responseFail",response)
-        setRedeemResult({
-          visible: true,
-          result: false,
-          title: "Error",
-          message: response.error,
-        });
-      }
-    
+    })
+    return filtered;
   }
 
   useEffect(async () => {
@@ -110,10 +168,22 @@ const Products = () => {
       paginationCounter: Math.floor(response.length / pagination.pageSize),
       paginatedProducts: newArray,
     });
-  }, []);
+    // FilterBy()
+  },[]);
+
+  useEffect((value)=>{
+    Filter(value)
+  },[query])
 
   return (
     <div className="productsContainer">
+      <div className="selectFilter">
+        <select  name="category" onChange={FilterByCategory}>
+        <option value="-1" selected>Select a filter</option>
+  {Categories.map((item)=>{return <option value={item}>{item}</option>})}
+        </select>
+        <input placeholder="Cost filter" name="cost" onChange={FilterByCost}></input>
+      </div>
       <ModalAlert properties={redeemResult} close={CloseModal}></ModalAlert>
       {pagination.paginatedProducts.map((product) => {
         return (

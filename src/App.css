@@ -65,7 +65,7 @@
   display: grid;
   grid-gap: 10px;
   grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );
-  padding: 15px;
+  /* padding: 15px; */
   justify-items: center;
   background-color: #282c34;
 }
@@ -413,4 +413,39 @@ border-radius: 5px;
   padding: 5px 15px;
   background-color: white;
   font-family: 'Rubik', sans-serif;
+}
+
+.selectFilter{
+  grid-column: 1/-1;
+  display: grid;
+  background-color: rgb(25 198 245);
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  grid-auto-flow: column;
+  grid-gap: 5px;
+}
+.selectFilter select{
+  
+  padding:10px 25px;
+  font-family: 'Rubik', sans-serif;
+  outline: 0;
+  background-color: #282c34;
+  border: 0;
+  color: white;
+  border-radius:5px ;
+  font-size: 1em;
+  justify-self: end;
+}
+
+.selectFilter input{
+  padding:10px 25px;
+  font-family: 'Rubik', sans-serif;
+  outline: 0;
+  background-color: #282c34;
+  border: 0;
+  color: white;
+  border-radius:5px ;
+  font-size: 1em;
+  justify-self: start;
 }
