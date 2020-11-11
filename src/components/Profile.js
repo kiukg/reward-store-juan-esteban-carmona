@@ -6,7 +6,7 @@ import ModalDialog from "./ModalDialog";
 import RedeemHistory from "./RedeemHistory";
 
 const Profile = () => {
-  const [user, setUser] = useContext(UserContext);
+  const [user, setUser,GetUserInfo] = useContext(UserContext);
   const [menu,setMenu] = useState(false);
   const [modal, setModal] = useState({
       visible:false,
@@ -16,7 +16,7 @@ const Profile = () => {
 
   const ShowHistory =()=>{
     setModal({
-        body: <RedeemHistory></RedeemHistory>,
+        body: <RedeemHistory close={HideModal}></RedeemHistory>,
         visible:true,
         title:'Redeem History'
     });
@@ -25,8 +25,8 @@ const Profile = () => {
 
   const ShowCoins =()=>{
     setModal({
-        body:<AddCoin></AddCoin>,
-        title:'Coins',
+        body:<AddCoin close={HideModal}></AddCoin>,
+        title:'Add Points',
         visible:true,
     });
     document.querySelector(".modal").style.display='grid';

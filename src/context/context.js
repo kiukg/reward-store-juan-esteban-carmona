@@ -7,6 +7,11 @@ const UserProvider = (props) =>{
     const {children} = props;
 
     useEffect(() => {
+      GetUserInfo()
+      }, []);
+
+      function GetUserInfo(){ 
+        console.log("Entered")
         const Url =
           "https://private-anon-44244cc0a3-aerolabchallenge.apiary-proxy.com/user/me";
         const headers = {
@@ -23,10 +28,12 @@ const UserProvider = (props) =>{
           .then((res) => {
             setUser(res);
           });
-      }, []);
+
+        return user;
+      }
       
     return(
-        <UserContext.Provider value={[user,setUser]}>
+        <UserContext.Provider value={[user,setUser,GetUserInfo]}>
             {children}
         </UserContext.Provider>
     )

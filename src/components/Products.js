@@ -28,7 +28,8 @@ const Products = () => {
       {products.map((product) => {
         return (
           <ProductItem
-            key={product.id}
+            key={product._id}
+            id={product._id}
             category={product.category}
             cost={product.cost}
             img={product.img.url}
