@@ -5,28 +5,33 @@ import coinIcon from "../assets/icons/coin.svg";
 
 const ProductItem = (props) => {
   const { category, cost, img, name, id } = props;
-  const [hover,setHover] = useState(false);
+  const [hover, setHover] = useState(false);
   const productItemRef = useRef();
   const [user, setUser, GetUserInfo] = useContext(UserContext);
 
-
-  const handleMouseEnter = () =>{
+  const handleMouseEnter = () => {
     setHover(true);
-  }
-  const handleMouseLeave = () =>{
+  };
+  const handleMouseLeave = () => {
     setHover(false);
-  }
-  
+  };
 
-  useEffect(()=>{
-    // console.log(productItemRef)
-    productItemRef.current.addEventListener('mousemove', handleMouseEnter )
-    productItemRef.current.addEventListener('mouseleave', handleMouseLeave )
-    return ()=>{
-      productItemRef.current.removeEventListener('mousemove', handleMouseEnter )
-      productItemRef.current.removeEventListener('mouseleave', handleMouseLeave )
-    }
-  })
+  useEffect(() => {
+    productItemRef.current.addEventListener("mousemove", handleMouseEnter);
+    productItemRef.current.addEventListener("mouseleave", handleMouseLeave);
+    return () => {
+      if (productItemRef != null && productItemRef.current != null) {
+        productItemRef.current.removeEventListener(
+          "mousemove",
+          handleMouseEnter
+        );
+        productItemRef.current.removeEventListener(
+          "mouseleave",
+          handleMouseLeave
+        );
+      }
+    };
+  });
 
   const RedeemProduct = () => {
     const Url =
@@ -50,27 +55,28 @@ const ProductItem = (props) => {
       });
   };
 
-  const withTernary = () => (
-    (!hover)
-      ? ""
-      : (user.points > cost)
-      ? (<div className="hoverCanBuy">
-          <label className="remaingPoints">Remainig points {user.points-cost}</label>
-          <button className="buttonCanBuy" onClick={RedeemProduct}>Redeem Now</button>
-      </div>)
-      : (<div className="hoverCantBuy">
+  const withTernary = () =>
+    !hover ? (
+      ""
+    ) : user.points > cost ? (
+      <div className="hoverCanBuy">
+        <label className="remaingPoints">
+          Remainig points {user.points - cost}
+        </label>
+        <button className="buttonCanBuy" onClick={RedeemProduct}>
+          Redeem Now
+        </button>
+      </div>
+    ) : (
+      <div className="hoverCantBuy">
         <label className="remaingPoints">Product cost {cost}</label>
         <button className="buttonCanBuy">Cant redeem</button>
-        </div>)
-  );
-
+      </div>
+    );
 
   return (
-
-    <div className="productItemContainer"  ref={productItemRef}>
-      {
-        withTernary()
-      }
+    <div className="productItemContainer" ref={productItemRef}>
+      {withTernary()}
       {user.points > cost ? (
         <div className="productBuyIcon">
           <img src={buyIcon}></img>

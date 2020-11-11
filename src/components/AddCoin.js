@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { asyncFetch } from "../utils/helpers";
 import minus from "../assets/icons/minus.svg";
 import plus from "../assets/icons/plus.svg";
 import { UserContext } from "../context/context";
@@ -26,7 +27,7 @@ const AddCoin = (props) => {
     }
   };
 
-  const SendAmount = () => {
+  const SendAmount = async () => {
     const Url =
       "https://private-anon-44244cc0a3-aerolabchallenge.apiary-proxy.com/user/points";
     const headers = {
@@ -41,16 +42,14 @@ const AddCoin = (props) => {
         amount: coins,
       }),
     };
-    fetch(Url, headers)
-      .then((res) => res.json())
-      .then((res) => {
-        setUser({
-          ...user,
-          points: res["New Points"],
-        });
-        alert(res.message);
-        props.close();
-      });
+    const response = await asyncFetch(Url, headers);
+
+    setUser({
+      ...user,
+      points: response["New Points"],
+    });
+    alert(response.message);
+    props.close();
   };
   return (
     <div className="addCoinContainer">

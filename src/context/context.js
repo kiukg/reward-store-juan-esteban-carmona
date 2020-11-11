@@ -1,4 +1,5 @@
 import React, {createContext,useEffect,useState} from "react";
+import { asyncFetch } from "../utils/helpers";
 
 const UserContext = createContext()
 
@@ -10,8 +11,7 @@ const UserProvider = (props) =>{
       GetUserInfo()
       }, []);
 
-      function GetUserInfo(){ 
-        console.log("Entered")
+      async function  GetUserInfo(){ 
         const Url =
           "https://private-anon-44244cc0a3-aerolabchallenge.apiary-proxy.com/user/me";
         const headers = {
@@ -23,12 +23,8 @@ const UserProvider = (props) =>{
               "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFhYzljZGI5NTIzZTAwMjA3ZTFmYzIiLCJpYXQiOjE2MDUwMjgzMDF9.AmLe0RxgByiXoIvSND0TFzRmZoN1DZQXFh2XAWt21bE",
           }),
         };
-        fetch(Url, headers)
-          .then((res) => res.json())
-          .then((res) => {
-            setUser(res);
-          });
-
+        const response = await asyncFetch(Url, headers);
+        setUser(response)
         return user;
       }
       
