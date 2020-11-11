@@ -334,7 +334,7 @@ border-radius: 5px;
 .paginationC{
   grid-column: 1/-1;
   width: 100%;
-  position: fixed;
+  position: sticky;
   bottom: 0;
   background-color: white;
   z-index: 500;
@@ -342,4 +342,75 @@ border-radius: 5px;
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
+  border: 1px solid #282c34;
+}
+
+.modalAlert{
+  /* display: none; */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 200px;
+  display: grid;
+  grid-template-rows: 30px 1fr auto;
+  align-items: center;
+  font-family: 'Rubik', sans-serif;
+  background-color: #ffffff;
+  box-shadow: 1px 1px 5px 0px #00000024;
+  border-radius: 5px;
+  z-index: 11;
+}
+
+.modalAlertHidden{
+    display: none;
+    position: fixed;
+}
+
+.errorAlertTitle{
+  background-color: crimson;
+  padding: 5px;
+  color: white;
+}
+
+.errorAlertBody{
+  padding: 5px;
+  display: grid;
+  justify-items: center;
+}
+
+.errorAlertText,.successAlertText{
+  padding: 15px;
+  text-align: center;
+  font-size: 15px;
+}
+
+.errorAlertButton{
+  color: crimson;
+  border: 1px solid crimson;
+  padding: 5px 15px;
+  background-color: white;
+  font-family: 'Rubik', sans-serif;
+}
+
+.successAlertTitle{
+  background-color: darkgreen;
+  padding: 5px;
+  color: white;
+}
+
+.successAlertBody{
+  padding: 5px;
+  display: grid;
+  justify-items: center;
+}
+
+
+
+.successAlertButton{
+  color: darkgreen;
+  border: 1px solid darkgreen;
+  padding: 5px 15px;
+  background-color: white;
+  font-family: 'Rubik', sans-serif;
 }

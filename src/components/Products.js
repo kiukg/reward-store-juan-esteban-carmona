@@ -1,10 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
+import { UserContext } from "../context/context";
 import { asyncFetch } from "../utils/helpers";
 import ProductItem from "./ProductItem";
 import Pagination from "@material-ui/lab/Pagination";
+import ModalAlert from "./ModalAlert";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+  const [user, setUser, GetUserInfo] = useContext(UserContext);
+  const [redeemResult, setRedeemResult] = useState({
+    visible: false,
+    result: true,
+    title: "",
+    message: "",
+  });
   const [pagination, setPagination] = useState({
     paginatedProducts: [],
     paginationCounter: 0,
@@ -27,6 +36,58 @@ const Products = () => {
       paginatedProducts: newArray,
     });
   };
+
+  const CloseModal =()=>{
+    setRedeemResult({
+      visible: false,
+      result: true,
+      title: "",
+      message: "",
+    });
+    document.querySelector(".modal").style.display='none';
+  }
+
+   const RedeemProduct = (id)=> async(event) =>{
+    
+      const Url =
+        "https://private-anon-44244cc0a3-aerolabchallenge.apiary-proxy.com/redeem";
+      const headers = {
+        method: "POST",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFhYzljZGI5NTIzZTAwMjA3ZTFmYzIiLCJpYXQiOjE2MDUwMjgzMDF9.AmLe0RxgByiXoIvSND0TFzRmZoN1DZQXFh2XAWt21bE",
+        }),
+        body: JSON.stringify({
+          productId: id,
+        }),
+      };
+
+      const response = await asyncFetch(Url, headers);
+      document.querySelector(".modal").style.display = "grid";
+      if (response.message) {
+        // console.log("responseOk",response)
+        setRedeemResult({
+          visible: true,
+          result: true,
+          title: "Success",
+          message: response.message,
+        });
+        GetUserInfo()
+      }
+
+      if (response.error) {
+        // console.log("responseFail",response)
+        setRedeemResult({
+          visible: true,
+          result: false,
+          title: "Error",
+          message: response.error,
+        });
+      }
+    
+  }
 
   useEffect(async () => {
     const Url =
@@ -53,15 +114,7 @@ const Products = () => {
 
   return (
     <div className="productsContainer">
-      <Pagination
-        color="primary"
-        className="paginationC"
-        count={pagination.paginationCounter}
-        page={pagination.page}
-        siblingCount={1}
-        boundaryCount={1}
-        onChange={handlePageChange}
-      />
+      <ModalAlert properties={redeemResult} close={CloseModal}></ModalAlert>
       {pagination.paginatedProducts.map((product) => {
         return (
           <ProductItem
@@ -72,9 +125,19 @@ const Products = () => {
             img={product.img.url}
             name={product.name}
             cost={product.cost}
+            redeem={RedeemProduct}
           />
         );
       })}
+      <Pagination
+        color="primary"
+        className="paginationC"
+        count={pagination.paginationCounter}
+        page={pagination.page}
+        siblingCount={1}
+        boundaryCount={1}
+        onChange={handlePageChange}
+      />
     </div>
   );
 };

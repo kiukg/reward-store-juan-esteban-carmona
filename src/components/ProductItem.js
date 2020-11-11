@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import { asyncFetch } from "../utils/helpers";
 import { UserContext } from "../context/context";
 import buyIcon from "../assets/icons/buy-blue.svg";
 import coinIcon from "../assets/icons/coin.svg";
 
 const ProductItem = (props) => {
-  const { category, cost, img, name, id } = props;
+  const { category, cost, img, name, id,redeem } = props;
   const [hover, setHover] = useState(false);
   const productItemRef = useRef();
   const [user, setUser, GetUserInfo] = useContext(UserContext);
@@ -31,29 +32,9 @@ const ProductItem = (props) => {
         );
       }
     };
-  });
+  },[hover]);
 
-  const RedeemProduct = () => {
-    const Url =
-      "https://private-anon-44244cc0a3-aerolabchallenge.apiary-proxy.com/redeem";
-    const headers = {
-      method: "POST",
-      headers: new Headers({
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFhYzljZGI5NTIzZTAwMjA3ZTFmYzIiLCJpYXQiOjE2MDUwMjgzMDF9.AmLe0RxgByiXoIvSND0TFzRmZoN1DZQXFh2XAWt21bE",
-      }),
-      body: JSON.stringify({
-        productId: id,
-      }),
-    };
-    fetch(Url, headers)
-      .then((res) => res.json())
-      .then((res) => {
-        GetUserInfo();
-      });
-  };
+ 
 
   const withTernary = () =>
     !hover ? (
@@ -63,9 +44,10 @@ const ProductItem = (props) => {
         <label className="remaingPoints">
           Remainig points {user.points - cost}
         </label>
-        <button className="buttonCanBuy" onClick={RedeemProduct}>
+        <button className="buttonCanBuy" onClick={redeem(id)}>
           Redeem Now
         </button>
+        
       </div>
     ) : (
       <div className="hoverCantBuy">
@@ -98,6 +80,7 @@ const ProductItem = (props) => {
       <div className="productName">
         <span>{name}</span>
       </div>
+      
     </div>
   );
 };
