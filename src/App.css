@@ -53,6 +53,8 @@
 .bannerCategory{
   font-size: 3em;
   font-family: 'Rubik', sans-serif;
+  margin-left: 15px;
+  color: #fff;
 }
 
 .bannerLogo{
@@ -287,4 +289,44 @@ border-radius: 5px;
 }
 .historyImage img{
   width: 100%;
+}
+.hoverCanBuy,.hoverCantBuy{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(10, 212, 250, 0.86) 0%, rgba(37, 187, 241, 0.86) 100%);
+  margin: 0;
+  padding: 0;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  grid-template-rows: 1fr 1fr;
+}
+
+.remaingPoints{
+  padding: 5px 15px;
+  border: 0;
+  outline: 0;
+  font-family: 'Rubik', sans-serif;
+  font-size: 1.4em;
+  /* background-color: #282c34; */
+  color: #ffffff;
+  border-radius: 5px;
+  display: grid;
+  align-self: flex-end;
+}
+
+.buttonCanBuy{
+  padding: 5px 15px;
+  border: 0;
+  outline: 0;
+  font-family: 'Rubik', sans-serif;
+  font-size: 1.4em;
+  background-color: #282c34;
+  color: #ffffff;
+  border-radius: 5px;
+  display: grid;
+  align-self: flex-start;
 }
