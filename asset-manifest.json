@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/reward-store-juan-esteban-carmona/static/css/main.d4763503.chunk.css",
+    "main.js": "/reward-store-juan-esteban-carmona/static/js/main.46add338.chunk.js",
+    "main.js.map": "/reward-store-juan-esteban-carmona/static/js/main.46add338.chunk.js.map",
+    "runtime-main.js": "/reward-store-juan-esteban-carmona/static/js/runtime-main.d6cdd0a9.js",
+    "runtime-main.js.map": "/reward-store-juan-esteban-carmona/static/js/runtime-main.d6cdd0a9.js.map",
+    "static/js/2.0c059d7a.chunk.js": "/reward-store-juan-esteban-carmona/static/js/2.0c059d7a.chunk.js",
+    "static/js/2.0c059d7a.chunk.js.map": "/reward-store-juan-esteban-carmona/static/js/2.0c059d7a.chunk.js.map",
+    "index.html": "/reward-store-juan-esteban-carmona/index.html",
+    "static/css/main.d4763503.chunk.css.map": "/reward-store-juan-esteban-carmona/static/css/main.d4763503.chunk.css.map",
+    "static/js/2.0c059d7a.chunk.js.LICENSE.txt": "/reward-store-juan-esteban-carmona/static/js/2.0c059d7a.chunk.js.LICENSE.txt",
+    "static/media/aerolab-logo.0a8fb170.svg": "/reward-store-juan-esteban-carmona/static/media/aerolab-logo.0a8fb170.svg",
+    "static/media/buy-blue.c5c4f01c.svg": "/reward-store-juan-esteban-carmona/static/media/buy-blue.c5c4f01c.svg",
+    "static/media/coin.26de1690.svg": "/reward-store-juan-esteban-carmona/static/media/coin.26de1690.svg",
+    "static/media/header-x1.b6f067c6.png": "/reward-store-juan-esteban-carmona/static/media/header-x1.b6f067c6.png",
+    "static/media/minus.fc16623d.svg": "/reward-store-juan-esteban-carmona/static/media/minus.fc16623d.svg",
+    "static/media/plus.f201b306.svg": "/reward-store-juan-esteban-carmona/static/media/plus.f201b306.svg",
+    "static/media/squarex.ef4267e4.svg": "/reward-store-juan-esteban-carmona/static/media/squarex.ef4267e4.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d6cdd0a9.js",
+    "static/js/2.0c059d7a.chunk.js",
+    "static/css/main.d4763503.chunk.css",
+    "static/js/main.46add338.chunk.js"
+  ]
+}
